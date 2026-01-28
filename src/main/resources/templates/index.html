@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>AirTicket Booking</title></head>
+<body>
+    <h1 th:text="${message}">Message</h1>
+    <form method="post" action="/book">
+        <label>Passenger Name: <input name="passengerName" required/></label><br/>
+        <label>Seat:
+            <select name="seat" required>
+                <option value="">Select</option>
+                <option th:each="seat : ${seats}" th:value="${seat}" th:text="${seat}"></option>
+            </select>
+        </label><br/>
+        <button>Book Ticket</button>
+    </form>
+    <p>Seats left: <span th:text="${seats != null ? seats.size() : 0}">0</span></p>
+</body>
+</html>
