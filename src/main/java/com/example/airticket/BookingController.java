@@ -16,7 +16,7 @@ public class BookingController {
 
     // inject both via constructor
     public BookingController(BookingService bookingService,
-                             BookingRepository bookingRepository) {
+            BookingRepository bookingRepository) {
         this.bookingService = bookingService;
         this.bookingRepository = bookingRepository;
     }
@@ -47,23 +47,24 @@ public class BookingController {
     public String book(@ModelAttribute BookingRequest request, Model model) {
         try {
             Flight booking = bookingService.bookSeat(
-                    request.getSeat(), request.getPassengerName()
-            );
+                    request.getSeat(), request.getPassengerName());
 
             // UNIQUE CODE IS HERE:
             String bookingCode = booking.getBookingId();
-
-            model.addAttribute("message",
-                    "Booking confirmed for " + booking.getPassengerName() +
-                    " on seat " + booking.getSeat() +
-                    ". Code: " + bookingCode +
-                    ". Total: $" + booking.getPrice()
-            );
+            model.addAttribute("bookingId", bookingCode);
+            model.addAttribute("passengerName", booking.getPassengerName());
+            model.addAttribute("selectedSeat", booking.getSeat());
+            model.addAttribute("price", booking.getPrice());
+            // model.addAttribute("message",
+            //         "Booking confirmed for " + booking.getPassengerName() +
+            //                 " on seat " + booking.getSeat() +
+            //                 ". Code: " + bookingCode +
+            //                 ". Total: $" + booking.getPrice());
 
             return "confirmation";
         } catch (IllegalStateException e) {
             model.addAttribute("message", e.getMessage());
-            return home(model);  // reload page with error
+            return home(model); // reload page with error
         }
     }
 }

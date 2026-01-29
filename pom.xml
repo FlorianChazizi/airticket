@@ -63,14 +63,24 @@
 		</dependency>
 	</dependencies>
 
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+<build>
+    <plugins>
+        <!-- Spring Boot Maven Plugin with ENV vars -->
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <environmentVariables>
+                    <DB_HOST>aws-1-eu-west-1.pooler.supabase.com</DB_HOST>
+                    <DB_PORT>5432</DB_PORT>
+                    <DB_NAME>postgres</DB_NAME>
+                    <DB_USERNAME>postgres.vdnhamzpvqtvqpirbefb</DB_USERNAME>
+                    <DB_PASSWORD>ChaziziAirTracker</DB_PASSWORD>
+                </environmentVariables>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+	
 
 </project>
