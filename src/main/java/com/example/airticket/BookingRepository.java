@@ -1,0 +1,11 @@
+// BookingRepository.java
+package com.example.airticket;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface BookingRepository extends JpaRepository<Flight, Long> {
+    Optional<Flight> findBySeat(String seat);
+}
+ 

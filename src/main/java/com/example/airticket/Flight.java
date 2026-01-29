@@ -1,24 +1,63 @@
 package com.example.airticket;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Flight {
-    private String id = "FL001";
-    private List<String> availableSeats = new ArrayList<>(List.of("A1", "A2", "B1", "B2", "C1", "C2"));
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "bookings")
+public class Flight { 
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false, unique = true)
+    private String bookingId;
+
+    @Column(nullable = false, unique = true)
+    private String seat;
+
+    @Column(nullable = false)
+    private String passengerName;   
+
+    @Column(nullable = false)
     private int price = 150;
 
-    public String bookSeat(String seat, String passenger) {
-        if (availableSeats.remove(seat)) {
-            String bookingId = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-            return "Booking confirmed for " + passenger + " on seat " + seat + ". ID: " + bookingId + ". Total: $"
-                    + price;
-        }
-        return "Seat " + seat + " unavailable.";
+    @Column(nullable = false)
+    private LocalDateTime bookingTime;
+
+    public Flight() {}
+      
+    public Flight(String seat, String passengerName) {
+        this.seat = seat;
+        this.passengerName = passengerName;
+        this.bookingId = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        this.bookingTime = LocalDateTime.now();
     }
 
-    public List<String> getAvailableSeats() {
-        return availableSeats;
+    public long getId() {
+        return id;
     }
+    public String getBookingId() {
+        return bookingId;
+    }
+    public String getSeat() {
+        return seat;
+    }
+    public String getPassengerName() {
+        return passengerName;
+    }
+    public int getPrice() {
+        return price;
+    }
+    public LocalDateTime getBookingTime() {
+        return bookingTime;
+    }    
 }
