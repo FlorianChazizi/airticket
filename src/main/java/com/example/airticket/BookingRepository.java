@@ -1,4 +1,3 @@
-// BookingRepository.java
 package com.example.airticket;
 
 import org.springframework.data.jpa.repository.JpaRepository;
